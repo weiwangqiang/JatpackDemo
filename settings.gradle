@@ -1,3 +1,4 @@
 rootProject.name = "JatpackDemo"
 include ':app'
 include ':viewModel'
+include ':compose'
