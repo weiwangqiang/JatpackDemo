@@ -9,6 +9,7 @@ buildscript {
         activity_version = "1.4.0"
         // https://developer.android.google.cn/jetpack/androidx/releases/fragment
         fragment_version = "1.4.1"
+        room_version = "2.4.2"
     }
     repositories {
         google()

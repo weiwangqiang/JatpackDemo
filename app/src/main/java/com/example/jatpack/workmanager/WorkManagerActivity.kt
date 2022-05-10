@@ -3,7 +3,9 @@ package com.example.jatpack.workmanager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import androidx.work.workDataOf
 import com.example.jatpack.databinding.ActivityWorkManagerBinding
@@ -29,17 +31,14 @@ class WorkManagerActivity : AppCompatActivity() {
             WorkManager.getInstance(this)
                     .getWorkInfoByIdLiveData(workRequest.id)
                     .observe(this) {
-                        if (it != null) {
+                        if (it?.state == WorkInfo.State.RUNNING) {
                             val progress = it.progress
                             val value = progress.getInt("key", 0)
-                            Log.d(TAG, "onData change: $value")
+                            Log.d(TAG, "onData change: $value other ${progress.getString("other")}")
                         }
-                    }
-
-            WorkManager.getInstance(this)
-                    .getWorkInfoByIdLiveData(workRequest.id)
-                    .observe(this) {
-                        Log.d(TAG, "onCreate: onData change  ${it.outputData.getString(KEY)}")
+                        if (it?.state == WorkInfo.State.SUCCEEDED) {
+                            Toast.makeText(this@WorkManagerActivity, "完成", Toast.LENGTH_SHORT).show()
+                        }
                     }
         }
     }

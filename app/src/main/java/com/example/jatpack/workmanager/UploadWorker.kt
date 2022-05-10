@@ -7,10 +7,10 @@ import androidx.work.*
 private const val TAG = "UploadWorker"
 
 class UploadWorker(appContext: Context, workerParams: WorkerParameters) :
-    CoroutineWorker(appContext, workerParams) {
+        CoroutineWorker(appContext, workerParams) {
     override suspend fun doWork(): Result {
         Log.d(TAG, "doWork: ${inputData.getString("title")}")
-        val data = workDataOf("key" to 80)
+        val data = workDataOf("key" to 50, "other" to "哈哈哈")
         setProgress(data)
         Thread.sleep(1000)
         Log.d(TAG, "doWork: finish it !!")
